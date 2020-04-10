@@ -34,7 +34,8 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Form(
+    return Scaffold(
+        body: Form(
       key: _formKey,
       child: ListView(
         padding: EdgeInsets.symmetric(horizontal: 22.0),
@@ -50,7 +51,7 @@ class _LoginPageState extends State<LoginPage> {
           buildPasswordTextField(context),
         ],
       ),
-    );
+        ));
   }
 
   Padding buildTitle() {
