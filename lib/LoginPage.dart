@@ -218,4 +218,32 @@ class _LoginPageState extends State<LoginPage> {
           .toList(),
     );
   }
+
+  // ignore: missing_return
+  Align buildRegisterText(BuildContext context) {
+    return Align(
+      alignment: Alignment.center,
+      child: Padding(
+        padding: EdgeInsets.only(
+          top: 10.0,
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text('没有账号？'),
+            GestureDetector(
+              child: Text(
+                '点击注册',
+                style: TextStyle(color: Colors.green),
+              ),
+              onTap: () {
+                print('去注册');
+                Navigator.pop(context);
+              },
+            )
+          ],
+        ),
+      ),
+    );
+  }
 }
