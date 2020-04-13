@@ -49,6 +49,15 @@ class _LoginPageState extends State<LoginPage> {
           buildEmailTextField(),
           SizedBox(height: 30.0),
           buildPasswordTextField(context),
+          buildForgetPasswordText(context),
+          SizedBox(height: 60.0),
+          buildLoginButton(context),
+          SizedBox(
+            height: 30.0,
+          ),
+          buildOtherLoginText(),
+          buildOtherMethod(context),
+          buildRegisterText(context),
         ],
       ),
         ));
@@ -122,6 +131,91 @@ class _LoginPageState extends State<LoginPage> {
         return "";
       },
       onSaved: (String value) => _password = value,
+    );
+  }
+
+  // ignore: missing_return
+  Padding buildForgetPasswordText(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.only(top: 8.0),
+      child: Align(
+        alignment: Alignment.centerRight,
+        child: FlatButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: Text(
+              '忘记密码',
+              style: TextStyle(fontSize: 14, color: Colors.grey),
+            )),
+      ),
+    );
+  }
+
+  // ignore: missing_return
+  Align buildLoginButton(BuildContext context) {
+    return Align(
+      child: SizedBox(
+        height: 45.0,
+        width: 270.0,
+        child: RaisedButton(
+          onPressed: () {
+            if (_formKey.currentState.validate()) {
+              _formKey.currentState.save();
+              print('email:$_email , assword:$_password');
+            }
+          },
+          shape: StadiumBorder(side: BorderSide()),
+          child: Text(
+            'Login',
+            style: Theme
+                .of(context)
+                .primaryTextTheme
+                .headline,
+          ),
+          color: Colors.black,
+        ),
+      ),
+    );
+  }
+
+  // ignore: missing_return
+  Align buildOtherLoginText() {
+    return Align(
+      alignment: Alignment.center,
+      child: Text(
+        '其他帐号登录',
+        style: TextStyle(color: Colors.grey, fontSize: 14.0),
+      ),
+    );
+  }
+
+  ButtonBar buildOtherMethod(BuildContext context) {
+    return ButtonBar(
+      alignment: MainAxisAlignment.center,
+      children: _loginMethod
+          .map((item) =>
+          Builder(
+            builder: (context) {
+              return IconButton(
+                  icon: Icon(item['icon'],
+                      color: Theme
+                          .of(context)
+                          .iconTheme
+                          .color),
+                  onPressed: () {
+                    //TODO : 第三方登录方法
+                    Scaffold.of(context).showSnackBar(new SnackBar(
+                      content: new Text("${item['title']}登录"),
+                      action: new SnackBarAction(
+                        label: "取消",
+                        onPressed: () {},
+                      ),
+                    ));
+                  });
+            },
+          ))
+          .toList(),
     );
   }
 }
